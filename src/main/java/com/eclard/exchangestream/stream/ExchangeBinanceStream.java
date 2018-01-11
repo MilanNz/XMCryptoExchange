@@ -17,8 +17,10 @@
 package com.eclard.exchangestream.stream;
 
 import com.eclard.exchangestream.constant.BinanceRouter;
+import com.eclard.exchangestream.constant.Currency;
 import com.eclard.exchangestream.exception.ExchangeStreamException;
-import javafx.util.Pair;
+import com.eclard.exchangestream.restapi.ExchangeApiBinance;
+import com.eclard.exchangestream.restapi.ExchangeApiBinanceImpl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
@@ -32,7 +34,7 @@ public class ExchangeBinanceStream {
     private WebSocket webSocket;
     private String interval;
     private String listenKey;
-    private Pair<String, String> tradePair;
+    private String pair;
 
     public ExchangeBinanceStream() {
         this.client = new OkHttpClient();
@@ -55,8 +57,7 @@ public class ExchangeBinanceStream {
         if (this.interval == null) {
             throw new ExchangeStreamException("Interval cannot be null!");
         }
-        String address = String.format(BinanceRouter.WEBSOCKET_KLINE_ADDRESS,
-                this.tradePair.getKey() + this.tradePair.getValue());
+        String address = String.format(BinanceRouter.WEBSOCKET_KLINE_ADDRESS, this.pair);
         this.webSocket = this.client.newWebSocket(
                 new Request.Builder().url(address).build(),
                 new ExchangeWebSocketListener(listener));
@@ -87,26 +88,45 @@ public class ExchangeBinanceStream {
                 new ExchangeWebSocketListener(listener));
     }
 
+    /**
+     * Gets implemented ExchangeApiBinance object for communication with https Binance API.
+     * This call requires api key and secret in order to use signed routes.
+     *
+     * @param apiKey API key.
+     * @param secretKey Client Secret.
+     */
+    public ExchangeApiBinance getApiBinance(String apiKey, String secretKey) {
+        return ExchangeApiBinanceImpl.newInstance(apiKey, secretKey);
+    }
+
+    /**
+     * Gets implemented ExchangeApiBinance object for communication with https Binance API.
+     * With this instance it is only possible to communicate with not
+     * signed routes.
+     */
+    public ExchangeApiBinance getApiBinance() {
+        return ExchangeApiBinanceImpl.newInstance();
+    }
+
     private void checkParameters(ExchangeWebSocketListener.StreamListener listener) {
         if (listener == null) {
             throw new ExchangeStreamException("Stream listener cannot be null!");
         }
-        if (this.tradePair == null) {
+        if (this.pair == null) {
             throw new ExchangeStreamException("Trade pair cannot be null!");
         }
     }
 
     private Request getRequest(String formatAddress) {
-        String address = String.format(formatAddress,
-                this.tradePair.getKey() + this.tradePair.getValue());
+        String address = String.format(formatAddress, this.pair);
         return new Request.Builder().url(address).build();
     }
 
     /**
      * Sets crypto currency pair.
      */
-    public ExchangeBinanceStream setPair(Pair<String, String> tradePair) {
-        this.tradePair = tradePair;
+    public ExchangeBinanceStream setPair(Currency firstSymbol, Currency secondSymbol) {
+        this.pair = firstSymbol.toString() + secondSymbol.toString();
         return this;
     }
 

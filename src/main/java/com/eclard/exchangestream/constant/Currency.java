@@ -19,27 +19,44 @@ package com.eclard.exchangestream.constant;
  * Created by Eclard.
  * User: Milan on 1/9/18. 00 : 07
  */
-public interface Currency {
-    String ETH = "eth";
-    String BTC = "btc";
-    String IOTA = "iota";
-    String XRP = "xrp";
-    String XVG = "xvg";
-    String XRM = "xmr";
-    String TRX = "trx";
-    String LTC = "ltc";
-    String MCO = "mco";
-    String SUB = "sub";
-    String QSP = "qsp";
-    String NEO = "neo";
-    String BQX = "bqx";
-    String EOS = "eos";
-    String QTUM = "qtum";
-    String BNT = "bnt";
-    String ZRN = "ZRN";
-    String FUN = "fun";
-    String BNB = "bnb";
-    String DASH = "dash";
-    String CNC = "cnc";
-    String ETC = "etc";
+public enum Currency {
+    ETH("Ethereum"),
+    BTC("Bitcoin"),
+    USDT("Tether USD"),
+    BNB("Binance Coin"),
+    IOTA("MIOTA"),
+    XRP("Ripple"),
+    XVG("Verge"),
+    XMR("Monero"),
+    TRX("TRON"),
+    LTC("Litecoin"),
+    MCO("Monaco"),
+    SUB("Substratum"),
+    QSP("Quantstamp"),
+    NEO("NEO"),
+    BQX("Ethos"),
+    EOS("EOS"),
+    QTUM("Qtum"),
+    BNT("Bancor"),
+    ZRX("ZRX"),
+    FUN("FunFair"),
+    DASH("Dash"),
+    CNC("CHNCoin"),
+    ETC("Ethereum Classic");
+
+    private String fullName;
+    Currency(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public static boolean isValidPair(Currency first, Currency second) {
+        return first != second && (second == Currency.ETH
+                || second == Currency.BTC
+                || second == Currency.BNB
+                || second == Currency.USDT);
+    }
 }

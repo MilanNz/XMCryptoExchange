@@ -1,0 +1,48 @@
+/*
+ * Copyright 2018 Eclard
+ * Copyright Milan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import com.eclard.exchangestream.restapi.ExchangeApiBinance;
+import com.eclard.exchangestream.restapi.ExchangeApiBinanceImpl;
+import com.google.gson.JsonObject;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+/**
+ * Created by Milan.
+ * On 1/11/18. 22 : 02
+ */
+public class ConnectionTest {
+
+    @Test
+    public void testServerTime() {
+        // Test server connection by retrieving server time.
+        // This call is synchronous.
+        ExchangeApiBinance apiBinance = ExchangeApiBinanceImpl.newInstance();
+        try {
+            JsonObject json = apiBinance.getServerTime().body();
+            System.out.println("serverTime: " + json);
+            assertTrue(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+}
