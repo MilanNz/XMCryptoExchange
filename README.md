@@ -11,7 +11,7 @@ It is build on top of the [Retrofit - Square lib](http://square.github.io/retrof
 ```
 // Subscribe on Binance trade stream.
 ExchangeBinanceStream binanceTradeStream = new ExchangeBinanceStream()
-      .setPair(new Pair<>(Currency.IOTA, Currency.ETH));
+      .setPair(Currency.IOTA, Currency.ETH);
 
 binanceTradeStream.stream(new ExchangeWebSocketListener.StreamListener<Trade>() {
     @Override
@@ -45,7 +45,7 @@ binanceStream.closeStream();
 
 ```
 ExchangeBinanceStream binanceStream = new ExchangeBinanceStream()
-          .setPair(new Pair<>(Currency.IOTA, Currency.ETH));
+          .setPair(Currency.IOTA, Currency.ETH);
 binanceStream.depthStream(new ExchangeWebSocketListener.StreamListener<JsonObject>()
   @Override
     public void onMessage(JsonObject json) {
@@ -76,7 +76,7 @@ userDataStream.userDataStream(new ExchangeWebSocketListener.StreamListener<JsonO
 ###### Kline websocket endpoint:
 ```
 ExchangeBinanceStream klineStream = new ExchangeBinanceStream()
-      .setPair(new Pair<>(Currency.IOTA, Currency.ETH))
+      .setPair(Currency.IOTA, Currency.ETH)
       .setInterval("1m");
 klineStream.klineStream(...);
 ```
