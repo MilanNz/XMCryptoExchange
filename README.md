@@ -1,5 +1,5 @@
-# :octocat: ExchangeStream
-ExchangeStream is a library for websocket communication with [Binance](www.binance.com) cryptocurrency exchange market.
+# :octocat: XMCryptoExchange
+XMCryptoExchange is a library for websocket communication with [Binance](www.binance.com) cryptocurrency exchange market.
 It is build on top of the [Retrofit - Square lib](http://square.github.io/retrofit/).
 
 [Binance API](https://www.binance.com/restapipub.html#wss-endpoint)
@@ -137,12 +137,13 @@ apiBinance.setTestOrder(order, response -> {
 - [Google Gson](https://github.com/google/gson)
 
 # Contribution
-Let me know if you want to help/improve or if you have any trouble/questions, feel free to ask ;)
+Let me know if you want to help/improve or if you have any troubles/questions, feel free to ask ;)
 
 # Will be supported soon:
-- Http rest communication.
 - Maven/Gradle
+- More documentation
 
-### I drink beer, thanks :beer: :P
+### I'm also trader, in case you want to buy me a :beer: :P
 Bitcoin: 1JVQnkuKTWA6i4AMXFsksdJgt4B3o1yfgA <br>
-Ethereum: 0x11a9df6086638aa3fe3e1023d7190f5f764cf7db
+Ethereum: 0x11a9df6086638aa3fe3e1023d7190f5f764cf7db <br>
+TRX: 0x11a9df6086638aa3fe3e1023d7190f5f764cf7db
